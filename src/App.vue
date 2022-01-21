@@ -1,28 +1,42 @@
 <template>
-  <div class="map"></div>
+  <div id='map-container'>
+    <div id='map-form'>
+    <!--
+      - Short Name / Pseudonym
+      - Full Name
+      - Latitude, Longitude in decimal notation
+      - Button to set view to these coordinates
+      - Options (popup with description):
+        [ ] show on map
+        [ ] make name public
+        [ ] blur the coordinates
+      - Save Button
+    -->
+    </div>
+    <leaflet-map :center="{lat: 6.310521, lng: -64.523735}" zoom=10>
+    </leaflet-map>
+  </div>
 </template>
 
 <script>
-import * as L from 'leaflet';
-import '../vendor/tile.stamen';
+import LeafletMap from './components/LeafletMap.vue';
 
 export default {
-  mounted() {
-    const layer = new L.StamenTileLayer('terrain');
-    const map = new L.Map(this.$el, {
-      /* Center: Caura River in Venezuela */
-      center: new L.LatLng(6.310521, -64.523735),
-      zoom: 9,
-    });
-    map.addLayer(layer);
+  components: {
+    LeafletMap,
   },
 };
 </script>
 
-<style scoped>
-.map {
+<style>
+#map-form {
   height: 100%;
-  width: 100%;
+  background-color: blue;
+  width: 200px;
 }
-@import '../node_modules/leaflet/dist/leaflet.css'
+
+#map-container {
+  height: 100%;
+  display: flex;
+}
 </style>
