@@ -1,31 +1,24 @@
 <template>
   <form id='map-form'>
-    <input type='text' v-model="form.pseudonym" placeholder="pseudonym">
+    <f-input v-model="form.pseudonym" placeholder="pseudonym"></f-input>
+    <hr class='small'>
     <div class='input-with-checkbox'>
-      <input type='text' v-model="form.name" placeholder="real name">
-      <label>
-        <input type="checkbox" v-model="form.hide_real_name">
-        Conceal
-      </label>
+      <f-input type='text' v-model="form.name" placeholder="real name"></f-input>
+      <f-checkbox v-model="form.hide_real_name">Conceal</f-checkbox>
     </div>
 
-    <hr>
+    <hr class='big'>
 
     <coordinates-form @center="emitCenter" :lat="this.lat" :lng="this.lng">
     </coordinates-form>
 
-    <hr>
+    <hr class='big'>
 
-    <label>
-      <input type="checkbox" v-model="form.blurred">
-      Blur coordinates
-    </label>
-    <label>
-      <input type="checkbox" v-model="form.not_on_map">
-      Don't show on map
-    </label>
+    <f-checkbox v-model="form.blurred">Blur coordinates</f-checkbox>
+    <hr class='small'>
+    <f-checkbox v-model="form.not_on_map">Hide from map</f-checkbox>
 
-    <hr>
+    <hr class='big'>
 
     <button class='visible' type="button" v-on:click="emitSave">Save</button>
   </form>
@@ -33,6 +26,8 @@
 
 <script>
 import CoordinatesForm from './CoordinatesForm.vue';
+import FCheckbox from './FCheckbox.vue';
+import FInput from './FInput.vue';
 
 export default {
   props: {
@@ -65,27 +60,10 @@ export default {
     },
   },
   components: {
-    CoordinatesForm,
+    CoordinatesForm, FCheckbox, FInput,
   },
 };
 </script>
-
-<style type="text/css" media="screen">
-input[type=text] {
-  width: 100%;
-  max-width: 12em;
-  display: block;
-  box-sizing: border-box;
-  padding: .3em;
-  border: 1px solid black;
-}
-
-input[type=text]:focus {
-  outline: none;
-  border-color: #DD3411;
-  box-shadow: 0 0 6px #DD3411;
-}
-</style>
 
 <style scoped>
 #map-form {
@@ -95,21 +73,14 @@ input[type=text]:focus {
   background: #e3f9eb;
 }
 
-hr {
-  margin: 1em;
+hr.small {
+  margin: 0.5em;
   opacity: 0;
 }
 
-label {
-  display: block;
-}
-
-input[type=checkbox] {
-  margin: 0;
-}
-
-input, input[type=checkbox] {
-  margin-bottom: 1em;
+hr.big {
+  margin: 1em;
+  opacity: 0;
 }
 
 button {
@@ -124,17 +95,9 @@ button {
 .input-with-checkbox {
   display: inline-flex;
   flex-flow: row wrap;
+  align-items: center;
   justify-content: space-between;
-  gap: 0 1em;
-  margin-bottom: 1em;
-}
-
-.input-with-checkbox label {
-  margin-top: .3em;
-}
-
-.input-with-checkbox input {
-  margin-bottom: 0;
+  gap: .2em 1em;
 }
 
 button.visible {

@@ -2,17 +2,19 @@
     <div class='input-table-grid'>
       <div class='input-column'>
         <label>Latitude</label>
-        <input type='text' v-model="form.latitude" placeholder="latitude">
+        <f-input v-model="form.latitude" placeholder="latitude"></f-input>
       </div>
       <div class='input-column'>
         <label>Longitude</label>
-        <input type='text' v-model="form.longitude" placeholder="longitude">
+        <f-input v-model="form.longitude" placeholder="longitude"></f-input>
       </div>
       <button type="button" v-on:click="emitCenter">Center</button>
     </div>
 </template>
 
 <script>
+import FInput from './FInput.vue';
+
 export default {
   props: {
     lat: {
@@ -37,6 +39,9 @@ export default {
         lng: this.form.longitude,
       });
     },
+  },
+  components: {
+    FInput,
   },
 };
 </script>
