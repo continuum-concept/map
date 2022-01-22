@@ -11,17 +11,8 @@
 
     <hr>
 
-    <div class='input-table-grid'>
-      <div class='input-column'>
-        <label class='top'>Latitude</label>
-        <input type='text' v-model="form.latitude" placeholder="latitude">
-      </div>
-      <div class='input-column'>
-        <label class='top'>Longitude</label>
-        <input type='text' v-model="form.longitude" placeholder="longitude">
-      </div>
-      <button type="button" v-on:click="emitCenter">Center</button>
-    </div>
+    <coordinates-form @center="emitCenter" :lat="this.lat" :lng="this.lng">
+    </coordinates-form>
 
     <hr>
 
@@ -41,6 +32,8 @@
 </template>
 
 <script>
+import CoordinatesForm from './CoordinatesForm.vue';
+
 export default {
   props: {
     lat: {
@@ -64,49 +57,20 @@ export default {
     };
   },
   methods: {
-    emitCenter() {
-      this.$emit('center', {
-        lat: this.form.latitude,
-        lng: this.form.longitude,
-      });
+    emitCenter(coordinates) {
+      this.$emit('center', coordinates);
     },
     emitSave() {
       this.$emit('save', this.form);
     },
   },
+  components: {
+    CoordinatesForm,
+  },
 };
 </script>
 
-<style scoped>
-#map-form {
-  height: 100%;
-  width: 100%;
-  padding: .8em;
-  background: #e3f9eb;
-}
-
-hr {
-  margin-bottom: .5em;
-  opacity: 0;
-}
-
-label {
-  display: block;
-}
-
-label.top {
-  display: block;
-  margin-bottom: .2em;
-}
-
-input[type=checkbox] {
-  margin: 0;
-}
-
-input, input[type=checkbox] {
-  margin-bottom: 1em;
-}
-
+<style type="text/css" media="screen">
 input[type=text] {
   width: 100%;
   max-width: 12em;
@@ -121,6 +85,32 @@ input[type=text]:focus {
   border-color: #DD3411;
   box-shadow: 0 0 6px #DD3411;
 }
+</style>
+
+<style scoped>
+#map-form {
+  height: 100%;
+  width: 100%;
+  padding: .8em;
+  background: #e3f9eb;
+}
+
+hr {
+  margin: 1em;
+  opacity: 0;
+}
+
+label {
+  display: block;
+}
+
+input[type=checkbox] {
+  margin: 0;
+}
+
+input, input[type=checkbox] {
+  margin-bottom: 1em;
+}
 
 button {
   text-align: center;
@@ -129,28 +119,6 @@ button {
   text-decoration: none;
   font-size: 0.9em;
   margin-bottom: 1em;
-}
-
-#map-container {
-  height: 100%;
-  display: flex;
-  width: 100%;
-}
-
-.input-table-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, 6em);
-  gap: 0 1em;
-  align-items: end;
-}
-
-.input-table-grid label {
-  font-size: .9em;
-}
-
-.input-table-grid  input[type=text] {
-  width: 6em;
-  box-sizing: content-box;
 }
 
 .input-with-checkbox {
