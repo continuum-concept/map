@@ -1,54 +1,59 @@
 <template>
-  <div id='map-container'>
-        <form id='map-form'>
-          <input type='text' v-model="form.pseudonym" placeholder="pseudonym">
-          <div class='input-with-checkbox'>
-            <input type='text' v-model="form.name" placeholder="real name">
-            <label>
-              <input type="checkbox" v-model="form.hide_real_name">
-              Conceal
-            </label>
-          </div>
-
-          <hr>
-
-          <div class='input-table-grid'>
-            <div class='input-column'>
-              <label class='top'>Latitude</label>
-              <input type='text' v-model="form.latitude" placeholder="latitude">
-            </div>
-            <div class='input-column'>
-              <label class='top'>Longitude</label>
-              <input type='text' v-model="form.longitude" placeholder="longitude">
-            </div>
-            <button type="button" v-on:click="center">Center</button>
-          </div>
-
-          <hr>
-
+  <splitpanes class="default-theme">
+    <pane size='20'>
+      <form id='map-form'>
+        <input type='text' v-model="form.pseudonym" placeholder="pseudonym">
+        <div class='input-with-checkbox'>
+          <input type='text' v-model="form.name" placeholder="real name">
           <label>
-            <input type="checkbox" v-model="form.blurred">
-            Blur coordinates
+            <input type="checkbox" v-model="form.hide_real_name">
+            Conceal
           </label>
-          <label>
-            <input type="checkbox" v-model="form.not_on_map">
-            Don't show on map
-          </label>
+        </div>
 
-          <hr>
+        <hr>
 
-          <button class='visible' type="button" v-on:click="save">Save</button>
-        </form>
-        <leaflet-map
-            ref="map"
-            :center="{lat: form.latitude, lng: form.longitude}"
-            :zoom=10>
-        </leaflet-map>
-  </div>
+        <div class='input-table-grid'>
+          <div class='input-column'>
+            <label class='top'>Latitude</label>
+            <input type='text' v-model="form.latitude" placeholder="latitude">
+          </div>
+          <div class='input-column'>
+            <label class='top'>Longitude</label>
+            <input type='text' v-model="form.longitude" placeholder="longitude">
+          </div>
+          <button type="button" v-on:click="center">Center</button>
+        </div>
+
+        <hr>
+
+        <label>
+          <input type="checkbox" v-model="form.blurred">
+          Blur coordinates
+        </label>
+        <label>
+          <input type="checkbox" v-model="form.not_on_map">
+          Don't show on map
+        </label>
+
+        <hr>
+
+        <button class='visible' type="button" v-on:click="save">Save</button>
+      </form>
+    </pane>
+  <pane size='80'>
+          <leaflet-map
+              ref="map"
+              :center="{lat: form.latitude, lng: form.longitude}"
+              :zoom=10>
+          </leaflet-map>
+  </pane>
+</splitpanes>
 </template>
 
 <script>
-// import { Splitpanes, Pane } from 'splitpanes';
+import { Splitpanes, Pane } from 'splitpanes';
+import 'splitpanes/dist/splitpanes.css';
 import LeafletMap from './components/LeafletMap.vue';
 
 export default {
@@ -66,7 +71,7 @@ export default {
     };
   },
   components: {
-    LeafletMap, // Splitpanes, Pane,
+    LeafletMap, Splitpanes, Pane,
   },
   methods: {
     center() {
@@ -76,12 +81,23 @@ export default {
 };
 </script>
 
+<style>
+
+/*.splitpanes__pane {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Helvetica, Arial, sans-serif;
+  color: rgba(255, 255, 255, 0.6);
+  font-size: 5em;
+}*/
+
+</style>
+
 <style scoped>
 #map-form {
   height: 100%;
-  width: 40%;
-  max-width: 20em;
-  #margin: .8em;
+  width: 100%;
   padding: .8em;
   background: #e3f9eb;
 }
@@ -135,6 +151,7 @@ button {
 #map-container {
   height: 100%;
   display: flex;
+  width: 100%;
 }
 
 .input-table-grid {

@@ -1,5 +1,5 @@
 <template>
-  <div class="map"></div>
+  <div ref='map' class="map"></div>
 </template>
 
 <script>
@@ -24,10 +24,19 @@ export default {
       zoom: this.zoom,
     });
     this.map.addLayer(layer);
+
+    this.resize_observer = new ResizeObserver(this.onMapContainerResize);
+    this.resize_observer.observe(this.$refs.map);
+  },
+  beforeUnmount() {
+    this.resize_observer.unobserve(this.$refs.map);
   },
   methods: {
     setView() {
       this.map.setView(new L.LatLng(this.center.lat, this.center.lng));
+    },
+    onMapContainerResize() {
+      this.map.invalidateSize();
     },
   },
 };
