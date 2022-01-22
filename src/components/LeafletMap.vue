@@ -19,11 +19,16 @@ export default {
   },
   mounted() {
     const layer = new L.StamenTileLayer('terrain');
-    const map = new L.Map(this.$el, {
+    this.map = new L.Map(this.$el, {
       center: new L.LatLng(this.center.lat, this.center.lng),
       zoom: this.zoom,
     });
-    map.addLayer(layer);
+    this.map.addLayer(layer);
+  },
+  methods: {
+    setView() {
+      this.map.setView(new L.LatLng(this.center.lat, this.center.lng));
+    },
   },
 };
 </script>
