@@ -2,11 +2,11 @@
     <div class='input-table-grid'>
       <div class='input-column'>
         <label>Latitude</label>
-        <f-input v-model="form.latitude" placeholder="latitude"></f-input>
+        <f-input v-model="form.latitude" placeholder="latitude" />
       </div>
       <div class='input-column'>
         <label>Longitude</label>
-        <f-input v-model="form.longitude" placeholder="longitude"></f-input>
+        <f-input v-model="form.longitude" placeholder="longitude" />
       </div>
       <button type="button" v-on:click="emitCenter">Center</button>
     </div>
@@ -46,19 +46,13 @@ export default {
 };
 </script>
 
+<style src='Css/form.css' scoped />
+
 <style scoped>
 label {
   display: block;
   margin-bottom: .2em;
   font-size: .9em;
-}
-
-button {
-  text-align: center;
-  padding: .3em;
-  height: 2em;
-  text-decoration: none;
-  font-size: 0.9em;
 }
 
 .input-table-grid {
