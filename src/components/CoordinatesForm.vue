@@ -2,13 +2,19 @@
     <div class='input-table-grid'>
       <div class='input-column'>
         <label>Latitude</label>
-        <f-input v-model="form.latitude" placeholder="latitude" />
+        <f-input
+          :value="this.lat"
+          @update:modelValue="this.$emit('update:lat', $event)"
+          placeholder="latitude" />
       </div>
       <div class='input-column'>
         <label>Longitude</label>
-        <f-input v-model="form.longitude" placeholder="longitude" />
+        <f-input
+          :value="this.lng"
+          @update:modelValue="this.$emit('update:lng', $event)"
+          placeholder="longitude" />
       </div>
-      <button type="button" v-on:click="emitCenter">Center</button>
+      <button type="button" v-on:click="this.$emit('center')">Center</button>
     </div>
 </template>
 
@@ -16,33 +22,8 @@
 import FInput from './FInput.vue';
 
 export default {
-  props: {
-    lat: {
-      type: Number,
-    },
-    lng: {
-      type: Number,
-    },
-  },
-  data() {
-    return {
-      form: {
-        latitude: this.lat,
-        longitude: this.lng,
-      },
-    };
-  },
-  methods: {
-    emitCenter() {
-      this.$emit('center', {
-        lat: this.form.latitude,
-        lng: this.form.longitude,
-      });
-    },
-  },
-  components: {
-    FInput,
-  },
+  props: { lat: Number, lng: Number },
+  components: { FInput },
 };
 </script>
 
